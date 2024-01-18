@@ -1,6 +1,5 @@
 #!/bin/bash
-echo "Enter your E-mail:"
-read mail
+read -p "Enter your Email:" mail
 ssh-keygen -t rsa -b 4096 -C "$mail"
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
