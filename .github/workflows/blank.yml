@@ -11,4 +11,6 @@ jobs:
     
     steps:
     - name: Get Runner IP
-      run: echo "Runner IP address is $RUNNER_IP_ADDRESS"
+      run: |
+        RUNNER_IP=$(curl -s https://api.github.com/meta | jq -r '.actions[].runner_ip')
+          echo "::set-output name=runner_ip::$RUNNER_IP"
