@@ -11,4 +11,4 @@ jobs:
     
     steps:
     - name: Get Runner IP
-      run: ip addr
+      run: hostname -I | awk '{print $1}'
