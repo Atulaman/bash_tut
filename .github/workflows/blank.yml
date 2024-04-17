@@ -1,20 +1,12 @@
-name: SSH to EC2 and Run Command
+name: Get Runner IP Address
 
-on:
-  push:
-    branches:
-      - main  # Change to your branch name
+on: [push]
 
 jobs:
-  ssh_to_ec2:
+  get_ip_address:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Get GitHub Actions Runner IP
-        id: runner_ip
-        run: |
-          RUNNER_IP=$(curl -s https://api.github.com/meta | jq -r '.actions[].runner_ip')
-          echo "::set-output name=runner_ip::$RUNNER_IP"
+    - name: Show Runner IP Address
+      run: |
+        echo "Runner IP Address: ${{ runner.ip }}"
