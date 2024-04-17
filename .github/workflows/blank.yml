@@ -1,0 +1,14 @@
+name: Get Runner IP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  get_ip:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Get Runner IP
+      run: echo "Runner IP address is $RUNNER_IP_ADDRESS"
