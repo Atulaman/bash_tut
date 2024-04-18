@@ -39,6 +39,7 @@ jobs:
         script: |
           # Your SSH commands go here
           echo "SSH connection successful"
+        run: pwd
   delete_nsg_rule:
     runs-on: ubuntu-latest
     needs: [add_nsg_rule_and_ssh]
