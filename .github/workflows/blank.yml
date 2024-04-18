@@ -40,3 +40,14 @@ jobs:
           # Your SSH commands go here
           echo "SSH connection successful"
           echo "Host name is: $( hostname )"
+  delete_nsg_rule:
+    runs-on: ubuntu-latest
+    needs: [add_nsg_rule_and_ssh]
+    steps:
+    - name: Delete Inbound NSG Rule
+      uses: azure/cli@v1
+      with:
+        azcliversion: 2.32.0
+        inlineScript: |
+          az login --service-principal -u ${{ secrets.AZURE_SP_APP_ID }} -p ${{ secrets.AZURE_SP_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+          az network nsg rule delete --name MyInboundNSGRule --nsg-name test-nsg --resource-group test
