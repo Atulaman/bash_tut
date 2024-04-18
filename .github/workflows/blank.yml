@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: Get Runner IP
       id: get_ip
-      run: echo "::set-output name=runner_ip::$(curl -s https://api.github.com/meta | jq -r '.actions[].runner_ip')"
+      run: echo "::set-output name=runner_ip::$(hostname -I | awk '{print $1}')"
 
   add_nsg_rule_and_ssh:
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
         azcliversion: 2.32.0
         inlineScript: |
           az login --service-principal -u ${{ secrets.AZURE_SP_APP_ID }} -p ${{ secrets.AZURE_SP_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-          az network nsg rule create --name MyInboundNSGRule --nsg-name MyNSG --resource-group MyResourceGroup --priority 100 --destination-port-range 22 --protocol tcp --access Allow --source-address-prefixes ${{ needs.get_runner_ip.outputs.runner_ip }} --description "Allow SSH traffic from GitHub Actions runner"
+          az network nsg rule create --name MyInboundNSGRule --nsg-name test-nsg --resource-group test --priority 100 --destination-port-range 22 --protocol tcp --access Allow --source-address-prefixes ${{ needs.get_runner_ip.outputs.runner_ip }} --description "Allow SSH traffic from GitHub Actions runner"
     
     - name: SSH into Azure VM
       uses: appleboy/ssh-action@master
