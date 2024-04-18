@@ -49,5 +49,4 @@ jobs:
       with:
         azcliversion: 2.32.0
         inlineScript: |
-          az login --service-principal -u ${{ secrets.AZURE_SP_APP_ID }} -p ${{ secrets.AZURE_SP_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
           az network nsg rule delete --name MyInboundNSGRule --nsg-name test-nsg --resource-group test        
