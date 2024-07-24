@@ -1,0 +1,7 @@
+sending incremental file list
+source/
+source/file1.txt
+source/file2.txt
+
+sent 362 bytes  received 58 bytes  840.00 bytes/sec
+total size is 148  speedup is 0.35
